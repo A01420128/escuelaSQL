@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 
 from utils import *
@@ -64,7 +64,7 @@ def alumno_nuevo_agregado():
         cur.execute('INSERT INTO Contacto (nombre, correo, telefono, direccion, id_estudiante) VALUES (\'{}\',\'{}\',{},\'{}\',{})'.format(Tutor2Nombre, Tutor2Correo, Tutor2Telefono, Tutor2Direccion, n))
         cur.execute('INSERT INTO Transaccion (monto, id_estudiante) VALUES ({},{})'.format(AdeudoTotal, n))
         cur.connection.commit()
-    return 'Enterado'
+    return redirect(url_for('index'))
 
 @app.route('/grupo/<id>', methods = ['POST', 'GET'])
 def get_group(id):
